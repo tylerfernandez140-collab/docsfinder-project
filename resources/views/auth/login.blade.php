@@ -1,0 +1,1 @@
+@extends('layouts.custom-auth')

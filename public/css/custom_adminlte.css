@@ -1,0 +1,136 @@
+/* ===== GLOBAL ===== */
+body {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background-color: #f9fafb;
+    color: #111827;
+    font-size: 14px;
+}
+
+.content-wrapper {
+    background: #f9fafb !important;
+}
+
+/* ===== SIDEBAR ===== */
+.main-sidebar {
+    background-color: #ffffff !important;
+    box-shadow: none !important;   /* removed shadow */
+    border-right: 1px solid #e5e7eb !important; /* clean subtle border */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+.brand-link {
+    border-bottom: 1px solid #e5e7eb !important;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #111827 !important;
+}
+
+.nav-sidebar .nav-item .nav-link {
+    color: #374151 !important;
+    font-weight: 500;
+    border-radius: 8px;
+    margin: 4px 8px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: none !important; /* flat look */
+}
+
+.nav-sidebar .nav-item .nav-link:hover {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+}
+
+.nav-sidebar .nav-item .nav-link.active {
+    background-color: #2563eb !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+/* ===== NAVBAR ===== */
+.main-header {
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border-bottom: none !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #374151 !important;
+    font-weight: 500;
+}
+
+/* ===== CARDS ===== */
+.card {
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+}
+
+.card-header {
+    background: #fff !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    font-weight: 600;
+}
+
+/* ===== SMALL BOXES (Dashboard metrics) ===== */
+.small-box {
+    background: #fff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    padding: 16px;
+    box-shadow: none !important;
+    color: #111827 !important;
+    transition: transform 0.2s ease-in-out;
+}
+
+.small-box:hover {
+    transform: translateY(-4px);
+}
+
+.small-box h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.small-box p {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* ===== TABLES ===== */
+.table {
+    border: none !important;
+    background: #fff !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.table th {
+    background: #f9fafb !important;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table td {
+    font-size: 0.9rem;
+    color: #111827;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    border-radius: 8px !important;
+    font-weight: 500;
+    padding: 6px 14px;
+}
+
+.btn-primary {
+    background-color: #2563eb !important;
+    border-color: #2563eb !important;
+}
+
+.btn-outline-secondary {
+    border-color: #d1d5db !important;
+    color: #374151 !important;
+}
