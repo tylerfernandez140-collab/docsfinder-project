@@ -11,25 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('users', function (Blueprint $table) {
-        $table->id();
-        $table->string('employee_id')->nullable();
-        $table->string('name');
-        $table->string('email');
-        $table->timestamp('email_verified_at')->nullable();
-        $table->date('dob')->nullable();
-        $table->text('address')->nullable();
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('employee_id')->nullable();
+            $table->string('name');
+            $table->string('email')->unique(); // Laravel requires unique emails
+            $table->timestamp('email_verified_at')->nullable();
+            $table->date('dob')->nullable();
+            $table->text('address')->nullable();
 
-        $table->string('password');
-        $table->rememberToken();
-        $table->timestamps();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->nullable();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
+        // ⚠️ Removed password_reset_tokens since Laravel already creates it
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
@@ -46,8 +42,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('users');
+        // No need to drop password_reset_tokens because Laravel manages it
     }
 };
