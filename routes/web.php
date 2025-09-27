@@ -145,7 +145,8 @@ Route::middleware(['auth', 'can:qao-only'])->prefix('qao')->group(function () {
     Route::get('/dashboard', [QAOController::class, 'dashboard'])->name('dashboard');
     Route::get('/users', [QAOController::class, 'users'])->name('users');
     Route::get('/settings', [QAOController::class, 'settings'])->name('settings');
-    Route::get('/audit-logs', [QAOController::class, 'auditLogs'])->name('qao.audit-logs');
+
+
 });
 
 Route::middleware(['auth', 'can:superadmin-admin-only'])->prefix('qao/eoms')->group(function () {
@@ -385,7 +386,7 @@ Route::prefix('qao')->middleware('auth')->name('qao.')->group(function () {
         return view('qao.reference-manual.checklists.process-review-checklists');
     })->name('qao.reference-manual.checklists.process-review-checklists');
 
-    Route::get('/audit-logs', [QAOController::class, 'auditLogs'])->name('qao.audit-logs');
+
     Route::get('/document-management/upload', function () {
         return view('qao.document-management.upload');
     })->name('qao.document-management.upload');
@@ -402,7 +403,7 @@ Route::prefix('qao')->middleware('auth')->name('qao.')->group(function () {
 
     Route::middleware(['can:superadmin-admin-only'])->group(function () {
         
-    });
+      });
 
 
 Route::get('/history-log/user-activity', function () {
@@ -462,7 +463,7 @@ Route::middleware(['auth', 'can:qao-only'])->prefix('qao')->group(function () {
     Route::get('/dashboard', [QAOController::class, 'dashboard'])->name('dashboard');
     Route::get('/users', [QAOController::class, 'users'])->name('users');
     Route::get('/settings', [QAOController::class, 'settings'])->name('settings');
-    Route::get('/audit-logs', [QAOController::class, 'auditLogs'])->name('qao.audit-logs');
+
 
     // Create (Add buttons)
     
