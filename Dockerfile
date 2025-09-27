@@ -18,6 +18,7 @@ FROM php:8.2-apache AS backend
 RUN apt-get update && apt-get install -y \
     git curl unzip libpq-dev libonig-dev libzip-dev postgresql-client \
     && docker-php-ext-install pdo pdo_pgsql pgsql mbstring zip \
+    && docker-php-ext-enable pdo_pgsql \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
