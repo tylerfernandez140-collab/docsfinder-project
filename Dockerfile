@@ -43,7 +43,8 @@ RUN git config --global --add safe.directory /var/www/html
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache \
+    && php artisan migrate --force
 
 # Set entrypoint
 COPY docker/entrypoint.sh /entrypoint.sh
