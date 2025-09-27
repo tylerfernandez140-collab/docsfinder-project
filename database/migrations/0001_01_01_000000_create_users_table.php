@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public bool $withinTransaction = false;
+
     /**
      * Run the migrations.
      */
@@ -15,17 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('employee_id')->nullable();
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->date('dob')->nullable();
             $table->text('address')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-        });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->unique('email');
         });
 
         Schema::create('sessions', function (Blueprint $table) {
