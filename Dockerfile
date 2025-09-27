@@ -30,9 +30,9 @@ COPY . .
 COPY --from=frontend /app/public/build ./public/build
 
 # Apache config
-COPY docker/000-default-laravel.conf /etc/apache2/sites-available/000-default.conf
+COPY docker/000-default-laravel.conf /etc/apache2/sites-available/000-default-laravel.conf
 RUN rm -f /etc/apache2/sites-enabled/000-default.conf
-RUN a2ensite 000-default.conf
+RUN a2ensite 000-default-laravel.conf
 RUN a2enmod rewrite
 
 # Git safe directory
