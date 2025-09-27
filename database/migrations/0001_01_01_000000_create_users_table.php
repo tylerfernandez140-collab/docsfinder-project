@@ -15,17 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('employee_id')->nullable();
             $table->string('name');
-            $table->string('email')->unique(); // Laravel requires unique emails
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->date('dob')->nullable();
             $table->text('address')->nullable();
-
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-        });
 
-        // ⚠️ Removed password_reset_tokens since Laravel already creates it
+            // 🔑 define the unique index separately
+            $table->unique('email');
+        });
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
@@ -44,6 +44,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('users');
-        // No need to drop password_reset_tokens because Laravel manages it
     }
 };
