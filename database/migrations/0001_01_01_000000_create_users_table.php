@@ -15,13 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('employee_id')->nullable();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->date('dob')->nullable();
             $table->text('address')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->unique('email');
         });
 
         Schema::create('sessions', function (Blueprint $table) {
