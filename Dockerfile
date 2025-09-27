@@ -1,55 +1,57 @@
-# Use an official PHP image with Apache as a builder stage
-FROM php:8.2-apache as builder
+# -------------------------------
+# Stage 1: Build Frontend (Vite)
+# -------------------------------
+FROM node:18 AS frontend
 
-# Install system dependencies and PHP extensions for the builder
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+# -------------------------------
+# Stage 2: Backend (Laravel + PHP + Apache)
+# -------------------------------
+FROM php:8.2-apache AS backend
+
+# Install system dependencies & PHP extensions
 RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+    git curl unzip libpq-dev libonig-dev libzip-dev zip \
+    && docker-php-ext-install pdo pdo_pgsql mbstring zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Set working directory
 WORKDIR /var/www/html
 
-# Copy application code
+# Copy Laravel backend code
 COPY . .
 
-# Install Composer dependencies
+# Copy frontend build from Stage 1
+COPY --from=frontend /app/public/build ./public/build
+
+# Copy Apache config
+COPY docker/000-default-laravel.conf /etc/apache2/sites-available/000-default.conf
+
+# Enable site & mod_rewrite
+RUN rm -f /etc/apache2/sites-enabled/000-default.conf
+RUN a2ensite 000-default.conf
+RUN a2enmod rewrite
+
+# Set entrypoint
+COPY docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# --- Production Stage ---
-FROM php:8.2-apache
+# Set Laravel storage/cache permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Install system dependencies and PHP extensions for the production image
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
-
-# Set working directory
-WORKDIR /var/www/html
-
-# Copy application code from the builder stage
-COPY --from=builder /var/www/html .
-
-# Set permissions for storage and bootstrap/cache
-RUN chown -R www-data:www-data storage bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
-
-# Expose port 80 for Apache
+# Expose port 80
 EXPOSE 80
-
-# Start Apache server
-CMD ["apache2-foreground"]

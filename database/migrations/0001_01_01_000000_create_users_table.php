@@ -21,6 +21,7 @@ return new class extends Migration
         $table->text('address')->nullable();
 
         $table->string('password');
+        $table->rememberToken();
         $table->timestamps();
         });
 

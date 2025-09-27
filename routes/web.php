@@ -32,6 +32,14 @@ Route::get('/', function () {
     return Auth::check() ? redirect('/home') : redirect('/login');
 });
 
+Route::get('/php-extensions', function () {
+    return phpinfo(); // or collect(get_loaded_extensions());
+});
+
+
+
+
+
 // ==========================
 // Process Owners Routes
 // ==========================
