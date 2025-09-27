@@ -218,7 +218,6 @@ Route::middleware('auth')->prefix('chat')->name('chat.')->group(function () {
 
 Route::middleware('auth')->prefix('groups')->name('groups.')->group(function () {
     Route::get('/', [GroupController::class, 'index'])->name('index');
-    Route::post('/store', [GroupController::class, 'store'])->name('store');
     Route::get('/member', [GroupController::class, 'member'])->name('member');
     Route::post('/store_member', [GroupController::class, 'store_member'])->name('store_member');
 });
