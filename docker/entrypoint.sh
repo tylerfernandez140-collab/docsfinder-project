@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Set proper permissions for Laravel
+# Ensure permissions
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
@@ -12,8 +12,11 @@ php artisan view:clear
 php artisan config:cache
 php artisan route:cache
 
-# Optional: run migrations on deploy
-php artisan migrate --force
+# Only run migrations if needed
+# php artisan migrate --force
+
+# Adjust Apache to use Render dynamic port
+sed -i "s/Listen 80/Listen ${PORT}/" /etc/apache2/ports.conf
 
 # Start Apache
 exec apache2-foreground
