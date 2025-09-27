@@ -13,7 +13,7 @@ php artisan config:cache
 php artisan route:cache
 
 # Optional: run migrations on deploy
-# php artisan migrate --force
+php artisan migrate --force
 
 # Start Apache
 exec apache2-foreground
