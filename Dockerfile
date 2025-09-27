@@ -18,8 +18,8 @@ FROM php:8.2-apache AS backend
 
 # Install system dependencies & PHP extensions
 RUN apt-get update && apt-get install -y \
-    git curl unzip libpq-dev libonig-dev libzip-dev \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring zip \
+    git curl unzip libpq-dev libonig-dev libzip-dev postgresql-client \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql mbstring zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
@@ -40,6 +40,9 @@ COPY docker/000-default-laravel.conf /etc/apache2/sites-available/000-default.co
 RUN rm -f /etc/apache2/sites-enabled/000-default.conf
 RUN a2ensite 000-default.conf
 RUN a2enmod rewrite
+
+# Add git safe directory
+RUN git config --global --add safe.directory /var/www/html
 
 # Set entrypoint
 COPY docker/entrypoint.sh /entrypoint.sh
