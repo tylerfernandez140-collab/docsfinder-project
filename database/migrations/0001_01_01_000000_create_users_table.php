@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('employee_id')->nullable();
             $table->string('name');
-            $table->string('email');
+            $table->string('email', 191);
             $table->timestamp('email_verified_at')->nullable();
             $table->date('dob')->nullable();
             $table->text('address')->nullable();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamps();
 
             // 🔑 define the unique index separately
-            $table->unique('email');
+            $table->unique('email', 'users_email_unique');
         });
 
         Schema::create('sessions', function (Blueprint $table) {
