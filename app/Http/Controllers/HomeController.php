@@ -158,37 +158,45 @@ class HomeController extends Controller
             $recentDocumentsTitle = 'Recently Distributed Documents';
             $recentDocumentsSubtitle = 'Latest documents distributed by you';
         } elseif ($user_role == 'process-owner') {
-            $documentsAssignedToMe = Upload::where('distributed_to_process_owner', $user->id)->count();
-            $pendingFeedbackRequests = History::where('assigned_to', $user->id)->where('status', 'pending')->count();
-            $feedbackCommentHistory = History::where('assigned_to', $user->id)->whereNotNull('comment')->count();
+            $documentsAssignedToMe = Upload::where('process_owner_id', $user->id)->count();
+            $pendingFeedbackRequests = Upload::where('process_owner_id', $user->id)->where('status_feedback', 0)->count();
+            $feedbackCommentHistory = Upload::where('process_owner_id', $user->id)->where('status_feedback', 1)->count();
             $documentsAssignedToMeTitle = 'Documents Assigned to Me';
             $pendingFeedbackRequestsTitle = 'Pending Feedback Requests';
-            $feedbackCommentHistoryTitle = 'Feedback Comment History';
-            $documentsAssignedToMeSubtitle = 'Documents for my review';
-            $pendingFeedbackRequestsSubtitle = 'Requests awaiting my feedback';
-            $feedbackCommentHistorySubtitle = 'Past feedback and comments';
+            $feedbackCommentHistoryTitle = 'Feedback/Comments History';
+            $documentsAssignedToMeSubtitle = 'Documents assigned by Campus DCC';
+            $pendingFeedbackRequestsSubtitle = 'Documents waiting for your feedback';
+            $feedbackCommentHistorySubtitle = 'Your submitted feedback history';
             $documentsAssignedToMeRoute = route('documents.assigned');
-            $pendingFeedbackRequestsRoute = route('feedback.pending');
-            $feedbackCommentHistoryRoute = route('feedback.history');
-            $recentDocuments = History::where('user_id', $user->id)->latest()->take(5)->get();
+            $pendingFeedbackRequestsRoute = route('documents.pending-feedback');
+            $feedbackCommentHistoryRoute = route('documents.feedback-history');
+            $recentDocuments = Upload::where('process_owner_id', $user->id)->latest()->take(5)->get();
             $recentDocumentsTitle = 'Recently Viewed Documents';
-            $recentDocumentsSubtitle = 'Your recently viewed documents';
+            $recentDocumentsSubtitle = 'Documents you viewed recently';
+        } else {
+            // Default for regular users or if no specific role is matched
+            $totalDocumentsTitle = 'Total Documents';
+            $controlledDocumentsTitle = 'Controlled Documents';
+            $pendingApprovalsTitle = 'Pending Approvals';
+            $totalDownloadsTitle = 'Total Downloads';
+            $totalDocumentsSubtitle = '+' . $percentDocuments . '% from last month';
+            $controlledDocumentsSubtitle = 'Documents marked as controlled';
+            $pendingApprovalsSubtitle = '+' . $percentPending . '% from last month';
+            $totalDownloadsSubtitle = '+' . $percentDownloads . '% from last month';
+            $totalDocumentsRoute = route('documents.index');
+            $controlledDocumentsRoute = route('documents.controlled');
+            $pendingApprovalsRoute = route('documents.pending');
+            $totalDownloadsRoute = route('documents.downloads');
+            $recentDocuments = Upload::with('user')->latest()->take(5)->get();
+            $recentDocumentsTitle = 'Recent Documents';
+            $recentDocumentsSubtitle = 'Latest document activities and updates';
         }
-
-        $totalDownloadsTitle = 'Total Downloads';
-        $totalDownloadsSubtitle = 'Total Downloads Subtitle';
-
-        // Initialize pendingApprovalsList and allDownloads
-        $pendingApprovalsList = []; // Or fetch actual data if needed
-        $allDownloads = []; // Or fetch actual data if needed
 
         return view('home', compact(
             'totalDocuments',
             'controlledDocuments',
             'pendingApprovals',
             'totalDownloads',
-            'totalDownloadsTitle',
-            'totalDownloadsSubtitle',
             'percentDocuments',
             'percentPending',
             'percentDownloads',
@@ -198,15 +206,16 @@ class HomeController extends Controller
             'totalDocumentsTitle',
             'controlledDocumentsTitle',
             'pendingApprovalsTitle',
-            'totalDownloadsTitle',
+            'recentDocumentsTitle',
             'totalDocumentsSubtitle',
             'controlledDocumentsSubtitle',
             'pendingApprovalsSubtitle',
-            'totalDownloadsSubtitle',
+            'recentDocumentsSubtitle',
             'totalDocumentsRoute',
             'controlledDocumentsRoute',
             'pendingApprovalsRoute',
             'totalDownloadsRoute',
+            // Admin specific
             'totalUploads',
             'uploadsThisMonthCount',
             'pendingReviewByCampusDCC',
@@ -219,6 +228,7 @@ class HomeController extends Controller
             'totalUploadsRoute',
             'uploadsThisMonthRoute',
             'pendingReviewByCampusDCCRoute',
+            // Campus DCC specific
             'totalDocumentsDistributed',
             'pendingDistributions',
             'distributedThisMonthCount',
@@ -231,6 +241,7 @@ class HomeController extends Controller
             'totalDocumentsDistributedRoute',
             'pendingDistributionsRoute',
             'distributedThisMonthRoute',
+            // Process Owner specific
             'documentsAssignedToMe',
             'pendingFeedbackRequests',
             'feedbackCommentHistory',
@@ -242,25 +253,12 @@ class HomeController extends Controller
             'feedbackCommentHistorySubtitle',
             'documentsAssignedToMeRoute',
             'pendingFeedbackRequestsRoute',
-            'feedbackCommentHistoryRoute',
-            'pendingApprovalsList', // Added
-            'allDownloads' // Added
+            'feedbackCommentHistoryRoute'
         ));
     }
 
-    protected function totalDocuments()
-    {
+    public function totalDocuments() {
         return Upload::count();
-    }
-
-    protected function controlledDocuments()
-    {
-        return Upload::where('status_upload', 1)->count();
-    }
-
-    protected function pendingApprovals()
-    {
-        return Upload::where('status_upload', 0)->count();
     }
 
     public function documentsIndex()

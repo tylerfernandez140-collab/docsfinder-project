@@ -13,10 +13,10 @@
     $recentDocumentsTitle = 'Recent Documents';
 
     // Subtitles
-    $totalDocumentsSubtitle = '+'.$percentDocuments.'% from last month';
-    $controlledDocumentsSubtitle = 'Documents marked as controlled';
-    $pendingApprovalsSubtitle = '+'.$percentPending.'% from last month';
-    $recentDocumentsSubtitle = 'Latest document activities and updates';
+    $totalDocumentsSubtitle = '';
+    $controlledDocumentsSubtitle = '';
+    $pendingApprovalsSubtitle = '';
+    $recentDocumentsSubtitle = '';
 
     if ($user_role == 'admin') {
         $totalDocumentsTitle = 'Total Uploads';
@@ -28,20 +28,20 @@
         $controlledDocuments = $uploadsThisMonthCount; // Use admin specific count
         $pendingApprovals = $pendingApprovals; // Use admin specific count
 
+        $totalDocumentsSubtitle = '+' . $percentDocuments . '% from last month';
+        $controlledDocumentsSubtitle = 'Documents marked as controlled';
+        $pendingApprovalsSubtitle = '+' . $percentPending . '% from last month';
+        $recentDocumentsSubtitle = 'Latest document activities and updates';
+
     } elseif ($user_role == 'superadmin') {
         $totalDocumentsTitle = 'Total Documents';
         $controlledDocumentsTitle = 'Controlled Documents';
         $pendingApprovalsTitle = 'Pending Approvals';
         $recentDocumentsTitle = 'Recent Documents';
 
-        // Removed redundant assignments:
-        // $totalDocuments = $totalDocuments; // Super Admin specific count
-        // $controlledDocuments = $controlledDocuments; // Super Admin specific count
-        // $pendingApprovals = $pendingApprovals; // Super Admin specific count
-
-        $totalDocumentsSubtitle = '+'.$percentDocuments.'% from last month';
+        $totalDocumentsSubtitle = '+' . $percentDocuments . '% from last month';
         $controlledDocumentsSubtitle = 'Documents marked as controlled';
-        $pendingApprovalsSubtitle = '+'.$percentPending.'% from last month';
+        $pendingApprovalsSubtitle = '+' . $percentPending . '% from last month';
         $recentDocumentsSubtitle = 'Latest document activities and updates';
     } elseif ($user_role == 'campus-dcc') {
         $totalDocumentsTitle = 'Total Documents Distributed';
@@ -49,9 +49,10 @@
         $pendingApprovalsTitle = 'Distributed This Month';
         $recentDocumentsTitle = 'Recently Distributed Documents';
 
-        // $totalDocuments = $totalDocuments; // Use Campus DCC specific count
-        // $controlledDocuments = $controlledDocuments; // Use Campus DCC specific count
-        // $pendingApprovals = $distributedThisMonthCount; // Use Campus DCC specific count
+        $totalDocumentsSubtitle = '+' . $percentDocuments . '% from last month';
+        $controlledDocumentsSubtitle = 'Documents marked as controlled';
+        $pendingApprovalsSubtitle = '+' . $percentPending . '% from last month';
+        $recentDocumentsSubtitle = 'Latest document activities and updates';
 
     } elseif ($user_role == 'process-owner') {
         $totalDocumentsTitle = 'Documents Assigned to Me';
@@ -59,14 +60,16 @@
         $pendingApprovalsTitle = 'Feedback/Comments History';
         $recentDocumentsTitle = 'Recently Viewed Documents';
 
-        // $totalDocuments = $totalDocuments; // Use Process Owner specific count
-        // $controlledDocuments = $controlledDocuments; // Assuming this is still relevant or needs adjustment
-        // $pendingApprovals = 0; // Assuming this is still relevant or needs adjustment
-
         $totalDocumentsSubtitle = 'Documents assigned by Campus DCC';
         $controlledDocumentsSubtitle = 'Documents waiting for your feedback';
         $pendingApprovalsSubtitle = 'Your submitted feedback history';
         $recentDocumentsSubtitle = 'Documents you viewed recently';
+    } else {
+        // Default subtitles for other roles or if no role is matched
+        $totalDocumentsSubtitle = '+' . $percentDocuments . '% from last month';
+        $controlledDocumentsSubtitle = 'Documents marked as controlled';
+        $pendingApprovalsSubtitle = '+' . $percentPending . '% from last month';
+        $recentDocumentsSubtitle = 'Latest document activities and updates';
     }
 @endphp
 <style>
