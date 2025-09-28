@@ -6,6 +6,11 @@
 @php
     $user_role = Auth::user()->role ? Auth::user()->role->name : 'user';
 
+    // Initialize variables with default values to prevent undefined variable errors
+    $percentDocuments = 0;
+    $percentPending = 0;
+    $percentDownloads = 0;
+
     // Titles
     $totalDocumentsTitle = 'Total Documents';
     $controlledDocumentsTitle = 'Controlled Documents';
