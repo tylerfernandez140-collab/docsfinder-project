@@ -11,6 +11,12 @@
     $percentPending = 0;
     $percentDownloads = 0;
 
+    // Initialize route variables with default values
+    $totalDocumentsRoute = '#';
+    $controlledDocumentsRoute = '#';
+    $pendingApprovalsRoute = '#';
+    $totalDownloadsRoute = '#';
+
     // Titles
     $totalDocumentsTitle = 'Total Documents';
     $controlledDocumentsTitle = 'Controlled Documents';
@@ -18,10 +24,10 @@
     $recentDocumentsTitle = 'Recent Documents';
 
     // Subtitles
-    $totalDocumentsSubtitle = '';
-    $controlledDocumentsSubtitle = '';
-    $pendingApprovalsSubtitle = '';
-    $recentDocumentsSubtitle = '';
+    $totalDocumentsSubtitle = 'No data available';
+    $controlledDocumentsSubtitle = 'No data available';
+    $pendingApprovalsSubtitle = 'No data available';
+    $recentDocumentsSubtitle = 'No data available';
 
     if ($user_role == 'admin') {
         $totalDocumentsTitle = 'Total Uploads';
