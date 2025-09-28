@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>DOCUFIND</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => asset('vendor/adminlte/dist/img/AdminLTELogo.png'),
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_clasocument Fbrand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => asset('vendor/adminlte/dist/img/AdminLTELogo.png'),
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -587,8 +587,10 @@ return [
     'assets' => [
         'css' => [
             'css/custom_adminlte.css', // ✅ Your custom styles (put file in /public/css)
+            asset('vendor/adminlte/dist/css/adminlte.min.css'),
         ],
         'js' => [
+            asset('vendor/adminlte/dist/js/adminlte.min.js'),
             // Add custom JS files if needed
         ],
     ],
