@@ -23,27 +23,30 @@
     $pendingApprovalsRoute = '#';
     $totalDownloadsRoute = '#';
 
-    // Titles
-    $totalDocumentsTitle = 'Total Documents';
-    $controlledDocumentsTitle = 'Controlled Documents';
-    $pendingApprovalsTitle = 'Pending Approvals';
-    $recentDocumentsTitle = 'Recent Documents';
-
-    // Subtitles
+    // Initialize subtitle variables with a default value
     $totalDocumentsSubtitle = 'No data available';
     $controlledDocumentsSubtitle = 'No data available';
     $pendingApprovalsSubtitle = 'No data available';
     $recentDocumentsSubtitle = 'No data available';
+    $totalDownloadsSubtitle = 'No data available';
+
+    // Initialize title variables with a default value
+    $totalDocumentsTitle = 'No data available';
+    $controlledDocumentsTitle = 'No data available';
+    $pendingApprovalsTitle = 'No data available';
+    $recentDocumentsTitle = 'No data available';
+    $totalDownloadsTitle = 'No data available';
 
     if ($user_role == 'admin') {
-        $totalDocumentsTitle = 'Total Uploads';
-        $controlledDocumentsTitle = 'Uploads This Month';
-        $pendingApprovalsTitle = 'Pending Review by Campus DCC';
-        $recentDocumentsTitle = 'My Recent Uploads';
+        $totalDocumentsTitle = 'Total Documents';
+        $controlledDocumentsTitle = 'Controlled Documents';
+        $pendingApprovalsTitle = 'Pending Approvals';
+        $recentDocumentsTitle = 'Recent Documents';
 
-        $totalDocuments = $totalUploads; // Use admin specific count
-        $controlledDocuments = $uploadsThisMonthCount; // Use admin specific count
-        $pendingApprovals = $pendingApprovals; // Use admin specific count
+        $totalDocumentsSubtitle = 'No data available';
+        $controlledDocumentsSubtitle = 'No data available';
+        $pendingApprovalsSubtitle = 'No data available';
+        $recentDocumentsSubtitle = 'No data available';
 
         $totalDocumentsSubtitle = '+' . $percentDocuments . '% from last month';
         $controlledDocumentsSubtitle = 'Documents marked as controlled';
