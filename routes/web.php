@@ -476,9 +476,7 @@ Route::middleware(['auth', 'can:qao-only'])->prefix('qao')->group(function () {
 });
 
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('documents')->middleware('auth')->name('documents.')->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'documentsIndex'])->name('index');
