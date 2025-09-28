@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', function () {
-    return Auth::check() ? redirect('/home') : redirect('/login');
+    return Auth::check() ? view('home') : redirect('/login');
 });
 
 Route::get('/php-extensions', function () {
