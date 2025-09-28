@@ -50,6 +50,7 @@ ENV APP_KEY=base64:placeholderkeyplaceholderkeyplaceholderkeyplaceholderkey
 RUN composer install --no-dev --optimize-autoloader --no-scripts \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN php artisan optimize:clear
 RUN php artisan package:discover --ansi
 RUN php artisan migrate --force
 
