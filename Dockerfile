@@ -46,10 +46,11 @@ ENV APP_URL=http://localhost
 ENV APP_ENV=production
 ENV APP_DEBUG=false
 ENV APP_RUNNING_IN_CONSOLE=true
-RUN composer install --no-dev --optimize-autoloader \
+RUN composer install --no-dev --optimize-autoloader --no-scripts \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache \
-    && php artisan migrate --force
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN php artisan package:discover --ansi
+RUN php artisan migrate --force
 
 # Set entrypoint
 COPY docker/entrypoint.sh /entrypoint.sh
