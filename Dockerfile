@@ -46,6 +46,7 @@ ENV APP_URL=http://localhost
 ENV APP_ENV=production
 ENV APP_DEBUG=false
 ENV APP_RUNNING_IN_CONSOLE=true
+ENV APP_KEY=base64:placeholderkeyplaceholderkeyplaceholderkeyplaceholderkey
 RUN composer install --no-dev --optimize-autoloader --no-scripts \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
