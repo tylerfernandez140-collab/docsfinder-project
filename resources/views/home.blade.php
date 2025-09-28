@@ -11,6 +11,12 @@
     $percentPending = 0;
     $percentDownloads = 0;
 
+    // Initialize count variables with default values
+    $totalDocuments = 0;
+    $controlledDocuments = 0;
+    $pendingApprovals = 0;
+    $totalDownloads = 0;
+
     // Initialize route variables with default values
     $totalDocumentsRoute = '#';
     $controlledDocumentsRoute = '#';
