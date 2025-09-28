@@ -1,5 +1,7 @@
 <?php
 
+// Temporary comment to force cache clear
+
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
