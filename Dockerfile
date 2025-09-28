@@ -42,6 +42,7 @@ RUN git config --global --add safe.directory /var/www/html
 
 # Install PHP dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV APP_URL=http://localhost
 RUN composer install --no-dev --optimize-autoloader \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache \
