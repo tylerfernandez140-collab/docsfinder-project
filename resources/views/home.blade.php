@@ -16,7 +16,7 @@
     $controlledDocuments = 0;
     $pendingApprovals = 0;
     $totalDownloads = 0;
-    $recentDocuments = 0;
+    $recentDocuments = [];
 
     // Initialize route variables with default values
     $totalDocumentsRoute = '#';
