@@ -32,7 +32,7 @@ Route::get('/', function () {
     if (Auth::check()) {
         return view('home');
     } else {
-        return redirect()->route('login');
+        return view('auth.login');
     }
 });
 
