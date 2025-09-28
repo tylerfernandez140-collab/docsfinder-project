@@ -47,7 +47,7 @@ ENV APP_ENV=production
 ENV APP_DEBUG=false
 ENV APP_RUNNING_IN_CONSOLE=true
 ENV APP_KEY=base64:placeholderkeyplaceholderkeyplaceholderkeyplaceholderkey
-RUN composer install --no-dev --optimize-autoloader --no-scripts \
+RUN composer install --no-dev --no-autoloader --no-scripts \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 RUN composer dump-autoload
