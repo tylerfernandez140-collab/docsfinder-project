@@ -413,6 +413,20 @@ return [
         'can'  => ['process_owners_only'],
     ],
 
+    ['header' => 'ACCOUNT'],
+    [
+        'text' => 'profile',
+        'url'  => 'profile',
+        'icon' => 'fas fa-fw fa-user',
+    ],
+    [
+        'text'    => 'logout',
+        'route'   => 'logout',
+        'icon'    => 'fas fa-fw fa-sign-out-alt',
+        'no_header_links' => true,
+        'topnav_right' => true,
+    ],
+
 
 
 
