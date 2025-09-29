@@ -42,9 +42,12 @@ RUN git config --global --add safe.directory /var/www/html
 
 # Install PHP dependencies (no artisan yet!)
 ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN composer install --no-dev --optimize-autoloader --no-scripts \
-    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Ensure correct permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/storage \
+    && chmod -R 755 /var/www/html/bootstrap/cache
 
 # Set entrypoint
 COPY docker/entrypoint.sh /entrypoint.sh
