@@ -1,0 +1,13 @@
+{
+  "resources/js/app.js": {
+    "file": "app-CFmC7jxQ.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/sass/app.scss": {
+    "file": "app-BooIDPot.css",
+    "src": "resources/sass/app.scss",
+    "isEntry": true
+  }
+}
